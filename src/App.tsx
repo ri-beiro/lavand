@@ -1,0 +1,23 @@
+import { Header } from './components/Header';
+import { Hero } from './components/Hero';
+import { About } from './components/About';
+import { Plans } from './components/Plans';
+import { Services } from './components/Services';
+import { Contact } from './components/Contact';
+import { Footer } from './components/Footer';
+
+export default function App() {
+  return (
+    <div className="min-h-screen">
+      <Header />
+      <main>
+        <Hero />
+        <About />
+        <Plans />
+        <Services />
+        <Contact />
+      </main>
+      <Footer />
+    </div>
+  );
+}
