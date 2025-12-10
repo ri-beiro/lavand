@@ -1,8 +1,8 @@
 
 
-🌟 LAVAND+ — LAVANDERIA AUTÔNOMA INTELIGENTE
+🌟 1Lavanderia Express — LAVANDERIA AUTÔNOMA INTELIGENTE
 
-Bem-vindo ao repositório oficial da Lavand+, uma lavanderia autônoma, moderna e pensada para oferecer praticidade, autonomia e eficiência em um ambiente 24h totalmente digital.
+Bem-vindo ao repositório oficial da 1Lavanderia Express, uma lavanderia autônoma, moderna e pensada para oferecer praticidade, autonomia e eficiência em um ambiente 24h totalmente digital.
 
 🚀 OBJETIVO DO PROJETO
 
@@ -107,5 +107,5 @@ Monitoramento de máquinas
 
 Exibição de status (Lavando / Secando / Livre)
 
-🧼 LAVAND+
+🧼 1Lavanderia Express
 Tecnologia e simplicidade lavando lado a lado.
