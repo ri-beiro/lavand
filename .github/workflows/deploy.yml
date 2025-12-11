@@ -1,0 +1,66 @@
+# 🎯 Nome que aparece na aba 'Actions' do GitHub
+name: Deploy React/Vite to GitHub Pages
+
+# 🔔 Gatilho: Quando este workflow deve ser executado
+on:
+  # Roda o workflow quando há um push na branch 'main'
+  push:
+    branches:
+      - main
+  # Permite que você o acione manualmente na aba Actions
+  workflow_dispatch:
+
+# 🔒 Permissões necessárias para que o Action possa fazer o deploy
+permissions:
+  contents: read # Permite ler os arquivos do repositório
+  pages: write # Permite escrever no ambiente GitHub Pages
+  id-token: write # Necessário para autenticação com as Pages
+
+# 🛠️ Definição das Tarefas (Jobs)
+jobs:
+  # 1. Job de Compilação (Build)
+  build:
+    runs-on: ubuntu-latest # Roda em um servidor virtual Linux
+    steps:
+      # Etapa 1: Faz o checkout do código
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Etapa 2: Configura o ambiente Node.js
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # Recomendado usar uma versão LTS
+          cache: "npm" # Otimiza a instalação de dependências
+
+      # Etapa 3: Instala as dependências do projeto
+      - name: Install Dependencies
+        run: npm install
+
+      # Etapa 4: Compila o projeto (cria a pasta 'dist')
+      - name: Build Project (Vite)
+        run: npm run build
+
+      # Etapa 5: Salva a pasta 'dist' como um "Artefato de Página"
+      # O deploy usa este artefato na próxima etapa
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./dist" # Deve corresponder ao 'outDir' do vite.config.ts
+
+  # 2. Job de Implantação (Deploy)
+  deploy:
+    # ⚠️ Depende do sucesso do job 'build'
+    needs: build
+
+    # ⏳ Define o ambiente de deploy (usado pelo GitHub Pages)
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      # Etapa 1: Faz a implantação dos arquivos que foram carregados como artefato
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
